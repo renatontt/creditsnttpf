@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Document(collection = "cardcredits")
 
 public class CreditCard extends Credit {
+    private String number;
     private double balance;
 
     private LocalDateTime billingDay;
