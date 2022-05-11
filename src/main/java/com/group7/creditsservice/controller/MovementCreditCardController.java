@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/credit_cards/movement")
+@RequestMapping("/credits/credit_cards/movement")
 @AllArgsConstructor
 @Slf4j
 public class MovementCreditCardController {

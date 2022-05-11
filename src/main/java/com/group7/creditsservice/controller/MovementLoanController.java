@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("loans/movement")
+@RequestMapping("/credits/loans/movement")
 @AllArgsConstructor
 @Slf4j
 

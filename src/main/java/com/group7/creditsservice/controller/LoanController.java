@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("loans")
+@RequestMapping("/credits/loans")
 
 public class LoanController {
     @Autowired
