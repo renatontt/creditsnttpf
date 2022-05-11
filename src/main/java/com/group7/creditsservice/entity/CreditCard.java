@@ -19,24 +19,5 @@ import java.util.Objects;
 
 public class CreditCard extends Credit {
     private String number;
-    private double balance;
-
-    private LocalDateTime billingDay;
-
-    public boolean isMovementValid(String type, Double amount) {
-
-        if (Objects.isNull(type) || Objects.isNull(amount))
-            throw new MovementCreationException("Type, Account and Amount are mandatory attributes");
-
-        return !type.equalsIgnoreCase("expense") ||
-                balance >= amount;
-    }
-
-    public void makeMovement(String type, Double amount) {
-        if (type.equalsIgnoreCase("expense")) {
-            balance -= amount;
-        } else if (type.equalsIgnoreCase("payment")) {
-            balance += amount;
-        }
-    }
+    private int billingDay;
 }

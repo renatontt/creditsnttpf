@@ -12,18 +12,9 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @Document(collection="movementsCreditCard")
-public class MovementCreditCard {
-    @Id
-    private String id;
-    @NonNull
-    private String type;
-    @NonNull
-    private Double amount;
-    private Date date;
+public class MovementCreditCard extends Movement {
+
     @NonNull
     private String credit;
-
-    public Double getAmountSigned(){
-        return type.equalsIgnoreCase("expense")?-1*amount:amount;
-    }
 }
+
