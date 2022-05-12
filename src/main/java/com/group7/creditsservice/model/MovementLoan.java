@@ -1,4 +1,4 @@
-package com.group7.creditsservice.entity;
+package com.group7.creditsservice.model;
 
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,6 +1,6 @@
 package com.group7.creditsservice.service;
 
-import com.group7.creditsservice.entity.MovementLoan;
+import com.group7.creditsservice.model.MovementLoan;
 import com.group7.creditsservice.exception.movement.MovementCreationException;
 import com.group7.creditsservice.repository.LoanRepository;
 import com.group7.creditsservice.repository.MovementLoanRepository;

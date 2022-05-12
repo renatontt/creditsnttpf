@@ -1,6 +1,6 @@
 package com.group7.creditsservice.repository;
 
-import com.group7.creditsservice.entity.MovementCreditCard;
+import com.group7.creditsservice.model.MovementCreditCard;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 

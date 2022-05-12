@@ -1,6 +1,6 @@
 package com.group7.creditsservice.service;
 
-import com.group7.creditsservice.entity.MovementCreditCard;
+import com.group7.creditsservice.model.MovementCreditCard;
 import com.group7.creditsservice.exception.movement.MovementCreationException;
 import com.group7.creditsservice.repository.CreditCardRepository;
 import com.group7.creditsservice.repository.MovementCreditCardRepository;

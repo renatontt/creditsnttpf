@@ -1,4 +1,4 @@
-package com.group7.creditsservice.entity;
+package com.group7.creditsservice.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

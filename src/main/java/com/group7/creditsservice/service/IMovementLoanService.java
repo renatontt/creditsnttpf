@@ -1,6 +1,6 @@
 package com.group7.creditsservice.service;
 
-import com.group7.creditsservice.entity.MovementLoan;
+import com.group7.creditsservice.model.MovementLoan;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

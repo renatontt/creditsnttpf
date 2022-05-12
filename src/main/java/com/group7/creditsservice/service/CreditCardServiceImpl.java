@@ -1,6 +1,6 @@
 package com.group7.creditsservice.service;
 
-import com.group7.creditsservice.entity.CreditCard;
+import com.group7.creditsservice.model.CreditCard;
 import com.group7.creditsservice.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

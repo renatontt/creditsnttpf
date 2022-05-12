@@ -1,6 +1,6 @@
 package com.group7.creditsservice.controller;
 
-import com.group7.creditsservice.entity.MovementCreditCard;
+import com.group7.creditsservice.model.MovementCreditCard;
 import com.group7.creditsservice.service.IMovementCreditCardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

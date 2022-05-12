@@ -1,16 +1,9 @@
-package com.group7.creditsservice.entity;
+package com.group7.creditsservice.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.group7.creditsservice.exception.movement.MovementCreationException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor

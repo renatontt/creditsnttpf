@@ -1,6 +1,6 @@
 package com.group7.creditsservice.controller;
 
-import com.group7.creditsservice.entity.CreditCard;
+import com.group7.creditsservice.model.CreditCard;
 import com.group7.creditsservice.service.ICreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

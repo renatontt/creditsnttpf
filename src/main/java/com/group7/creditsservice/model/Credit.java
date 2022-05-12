@@ -1,13 +1,16 @@
-package com.group7.creditsservice.entity;
+package com.group7.creditsservice.model;
 
 import com.group7.creditsservice.exception.movement.MovementCreationException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
+@SuperBuilder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +19,7 @@ public class Credit {
     @Id
     private String id;
 
-    private String clientId;
+    private String client;
     private double amount;
     private int paymentDay;
     private double tcea;
