@@ -6,9 +6,14 @@ import com.group7.creditsservice.model.Loan;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface ILoanService {
+public interface LoanService {
 
-    public Mono<LoanResponse> saveLoan(Mono<LoanRequest> loanRequest);
+    Flux<Loan> findAllLoans();
 
-    public Flux<Loan> findAllLoans();
+    Mono<LoanResponse> saveLoan(Mono<LoanRequest> loanRequest);
+
+    Mono<LoanResponse> update(String id, Mono<LoanRequest> loanRequest);
+
+    Mono<Void> delete(String id);
+
 }

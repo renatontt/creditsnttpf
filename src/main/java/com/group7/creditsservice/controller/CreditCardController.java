@@ -1,7 +1,7 @@
 package com.group7.creditsservice.controller;
 
 import com.group7.creditsservice.model.CreditCard;
-import com.group7.creditsservice.service.ICreditCardService;
+import com.group7.creditsservice.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 public class CreditCardController {
     @Autowired
-    private ICreditCardService service;
+    private CreditCardService service;
 
     @GetMapping
     public Flux<CreditCard> getCreditCards() {

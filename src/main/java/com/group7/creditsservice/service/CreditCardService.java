@@ -4,7 +4,7 @@ import com.group7.creditsservice.model.CreditCard;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface ICreditCardService {
+public interface CreditCardService {
 
     public Mono<CreditCard> saveCreditCard(CreditCard creditCard);
 

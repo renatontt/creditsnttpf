@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 @Data
@@ -28,6 +26,8 @@ public class LoanRequest {
     @NotNull
     private double amount;
     @NotNull
+    @Min(value = 1)
+    @Max(value = 25)
     private int paymentDay;
 
     @NotNull

@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class CreditCardServiceImpl implements ICreditCardService {
+public class CreditCardServiceImpl implements CreditCardService {
 
     @Autowired
     private CreditCardRepository repository;
