@@ -25,6 +25,11 @@ public class CreditCardController {
         return service.findAllCreditCars();
     }
 
+    @GetMapping("/client/{client}")
+    public Flux<CreditCardResponse> getAllCreditCardsByClient(@PathVariable String client) {
+        return service.getAllCreditCardsByClient(client);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<CreditCardResponse> saveCreditCard(@Valid @RequestBody Mono<CreditCardRequest> creditCardRequestMono) {

@@ -19,15 +19,21 @@ public class CreditCardServiceImpl implements CreditCardService {
     private CreditCardRepository repository;
 
     @Override
-    public Mono<CreditCardResponse> saveCreditCard(Mono<CreditCardRequest> creditCardRequestMono) {
-        return creditCardRequestMono.map(CreditCardRequest::toModel)
-                .flatMap(repository::insert)
+    public Flux<CreditCard> findAllCreditCars() {
+        return repository.findAll().switchIfEmpty(Flux.empty());
+    }
+
+    @Override
+    public Flux<CreditCardResponse> getAllCreditCardsByClient(String client) {
+        return repository.findCreditCardsByClient(client)
                 .map(CreditCardResponse::fromModel);
     }
 
     @Override
-    public Flux<CreditCard> findAllCreditCars() {
-        return repository.findAll().switchIfEmpty(Flux.empty());
+    public Mono<CreditCardResponse> saveCreditCard(Mono<CreditCardRequest> creditCardRequestMono) {
+        return creditCardRequestMono.map(CreditCardRequest::toModel)
+                .flatMap(repository::insert)
+                .map(CreditCardResponse::fromModel);
     }
 
     @Override
