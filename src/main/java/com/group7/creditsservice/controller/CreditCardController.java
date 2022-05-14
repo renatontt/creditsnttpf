@@ -1,11 +1,17 @@
 package com.group7.creditsservice.controller;
 
+import com.group7.creditsservice.dto.CreditCardRequest;
+import com.group7.creditsservice.dto.CreditCardResponse;
+import com.group7.creditsservice.dto.LoanRequest;
 import com.group7.creditsservice.model.CreditCard;
 import com.group7.creditsservice.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/credits/credit_cards")
@@ -20,7 +26,18 @@ public class CreditCardController {
     }
 
     @PostMapping
-    public Mono<CreditCard> saveCreditCard(@RequestBody CreditCard creditCard) {
-        return service.saveCreditCard(creditCard);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<CreditCardResponse> saveCreditCard(@Valid @RequestBody Mono<CreditCardRequest> creditCardRequestMono) {
+        return service.saveCreditCard(creditCardRequestMono);
+    }
+
+    @PutMapping("{id}")
+    public Mono<CreditCardResponse> updateCreditCard(@PathVariable String id, @Valid @RequestBody Mono<CreditCardRequest> creditCardRequestMono) {
+        return service.updateCreditCard(id, creditCardRequestMono);
+    }
+
+    @DeleteMapping("{id}")
+    public Mono<Void> deleteCreditCard(@PathVariable String id) {
+        return service.deleteCreditCard(id);
     }
 }
