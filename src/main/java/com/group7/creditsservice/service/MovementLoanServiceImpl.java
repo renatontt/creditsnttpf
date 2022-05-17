@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Slf4j
 
-public class MovementLoanServiceImpl implements IMovementLoanService {
+public class MovementLoanServiceImpl implements MovementLoanService {
 
     private LoanRepository loanRepository;
     private MovementLoanRepository movementLoanRepository;
@@ -78,7 +79,8 @@ public class MovementLoanServiceImpl implements IMovementLoanService {
                         }))
                 .then(Mono.just(movementRequest))
                 .map(movement -> {
-                    movement.setDate(new Date());
+                    LocalDateTime lt = LocalDateTime.now();
+                    movement.setDate(lt);
                     return movement;
                 })
                 .flatMap(movementLoan -> movementLoanRepository.insert(movementLoan))

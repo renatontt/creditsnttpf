@@ -1,7 +1,11 @@
 package com.group7.creditsservice.controller;
 
+import com.group7.creditsservice.model.CreditCard;
 import com.group7.creditsservice.model.MovementCreditCard;
-import com.group7.creditsservice.service.IMovementCreditCardService;
+import com.group7.creditsservice.repository.CreditCardRepository;
+import com.group7.creditsservice.repository.MovementCreditCardRepository;
+import com.group7.creditsservice.service.MovementCreditCardService;
+import com.group7.creditsservice.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -9,13 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 @RestController
 @RequestMapping("/credits/credit_cards/movement")
 @AllArgsConstructor
 @Slf4j
 public class MovementCreditCardController {
 
-    private IMovementCreditCardService service;
+    private MovementCreditCardService service;
 
     @GetMapping
     public Flux<MovementCreditCard> getAllMovements(){

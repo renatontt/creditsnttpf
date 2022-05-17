@@ -4,7 +4,7 @@ import com.group7.creditsservice.model.MovementLoan;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface IMovementLoanService {
+public interface MovementLoanService {
     Flux<MovementLoan> getAll();
 
     Mono<MovementLoan> getById(String id);
