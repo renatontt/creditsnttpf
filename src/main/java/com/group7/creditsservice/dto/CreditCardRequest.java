@@ -23,6 +23,10 @@ public class CreditCardRequest {
     @NotNull
     private double amount;
 
+    @Positive
+    @NotNull
+    private double balance;
+
     @NotNull
     @Min(value = 1)
     @Max(value = 25)
@@ -40,6 +44,7 @@ public class CreditCardRequest {
         return CreditCard.builder()
                 .client(this.client)
                 .amount(this.amount)
+                .balance(this.balance)
                 .paymentDay(this.paymentDay)
                 .number(this.number)
                 .billingDay(this.billingDay)

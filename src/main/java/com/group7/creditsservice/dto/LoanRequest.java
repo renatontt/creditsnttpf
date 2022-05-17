@@ -25,6 +25,10 @@ public class LoanRequest {
     @Positive
     @NotNull
     private double amount;
+
+    @Positive
+    @NotNull
+    private double balance;
     @NotNull
     @Min(value = 1)
     @Max(value = 25)
@@ -40,6 +44,7 @@ public class LoanRequest {
         return Loan.builder()
                 .client(this.client)
                 .amount(this.amount)
+                .balance(this.balance)
                 .paymentDay(this.paymentDay)
                 .fullPayment(this.fullPayments)
                 .numberInstallments(this.numberInstallments)
