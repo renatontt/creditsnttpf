@@ -24,6 +24,14 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
+    public Mono<CreditCardResponse> getById(String id) {
+        return repository.findById(id)
+                .switchIfEmpty(Mono.error(new LoanNotFoundException("Not found credit card"+id)))
+                .doOnError(ex -> log.error("Not found credit card", id, ex))
+                .map(CreditCardResponse::fromModel);
+    }
+
+    @Override
     public Flux<CreditCardResponse> getAllCreditCardsByClient(String client) {
         return repository.findCreditCardsByClient(client)
                 .map(CreditCardResponse::fromModel);

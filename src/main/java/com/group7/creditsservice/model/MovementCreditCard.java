@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @SuperBuilder
-@Builder
 @NoArgsConstructor
 @ToString
 @AllArgsConstructor

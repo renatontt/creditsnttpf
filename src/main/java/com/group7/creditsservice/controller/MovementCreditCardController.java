@@ -1,11 +1,9 @@
 package com.group7.creditsservice.controller;
 
-import com.group7.creditsservice.model.CreditCard;
+import com.group7.creditsservice.dto.MovementRequest;
+import com.group7.creditsservice.dto.MovementResponse;
 import com.group7.creditsservice.model.MovementCreditCard;
-import com.group7.creditsservice.repository.CreditCardRepository;
-import com.group7.creditsservice.repository.MovementCreditCardRepository;
 import com.group7.creditsservice.service.MovementCreditCardService;
-import com.group7.creditsservice.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/credits/credit_cards/movement")
@@ -32,7 +27,7 @@ public class MovementCreditCardController {
     }
 
     @GetMapping("/product/{credit}")
-    public Flux<MovementCreditCard> getAllMovementsByCredit(@PathVariable String credit){
+    public Flux<MovementResponse> getAllMovementsByCredit(@PathVariable String credit){
         return service.getAllMovementsByCredit(credit);
     }
 
@@ -48,14 +43,8 @@ public class MovementCreditCardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<MovementCreditCard> saveMovement(@RequestBody MovementCreditCard movementRequest){
+    public Mono<MovementResponse> saveMovement(@Valid @RequestBody MovementRequest movementRequest){
         return service.save(movementRequest);
-    }
-
-    @PutMapping("{id}")
-    public Mono<MovementCreditCard> updateMovement(@PathVariable String id,
-                                                 @RequestBody MovementCreditCard movementRequest){
-        return service.update(id, movementRequest);
     }
 
     @DeleteMapping("{id}")

@@ -10,6 +10,8 @@ public interface CreditCardService {
 
     public Flux<CreditCard> findAllCreditCars();
 
+    Mono<CreditCardResponse> getById(String id);
+
     public Flux<CreditCardResponse> getAllCreditCardsByClient(String client);
 
     public Mono<CreditCardResponse> saveCreditCard(Mono<CreditCardRequest> creditCardRequestMono);
