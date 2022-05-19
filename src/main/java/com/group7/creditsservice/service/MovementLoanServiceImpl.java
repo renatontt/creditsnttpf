@@ -1,10 +1,11 @@
 package com.group7.creditsservice.service;
 
+import com.group7.creditsservice.dto.MovementRequest;
+import com.group7.creditsservice.dto.MovementResponse;
 import com.group7.creditsservice.model.MovementLoan;
 import com.group7.creditsservice.exception.movement.MovementCreationException;
 import com.group7.creditsservice.repository.LoanRepository;
 import com.group7.creditsservice.repository.MovementLoanRepository;
-import com.group7.creditsservice.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.util.Date;
 
 @Service
 @AllArgsConstructor
@@ -47,8 +46,7 @@ public class MovementLoanServiceImpl implements MovementLoanService {
         LocalDate firstOfMonth = currentMonth.atDay(1);
         LocalDate last = currentMonth.atEndOfMonth();
 
-        return movementLoanRepository.findByLoanAndDateBetween(loan, DateUtils.asDate(firstOfMonth), DateUtils.asDate(last))
-                .doOnEach(System.out::println)
+        return movementLoanRepository.findByLoanAndDateBetween(loan,firstOfMonth, last)
                 .reduce(0.0, (x, y)->x+y.getAmountSigned());
     }
 
@@ -67,23 +65,19 @@ public class MovementLoanServiceImpl implements MovementLoanService {
     }
 
     @Override
-    public Mono<MovementLoan> save(MovementLoan movementRequest) {
+    public Mono<MovementResponse> save(MovementRequest movementRequest) {
         return Mono.just(movementRequest)
+                .map(MovementRequest::toModelMovementLoan)
                 .flatMap(movement -> loanRepository.findById(movement.getLoan())
                         .switchIfEmpty(Mono.error(new MovementCreationException("Loan not found with id:"+movement.getLoan())))
                         .flatMap(existingLoan -> {
                             if (!existingLoan.isMovementValid(movement.getType(), movement.getAmount()))
                                 return Mono.error(new MovementCreationException("You reach the limit of your credit card"));
                             existingLoan.makeMovement(movement.getType(), movement.getAmount());
-                            return loanRepository.save(existingLoan);
+                            return loanRepository.save(existingLoan)
+                                    .then(movementLoanRepository.insert(movement));
                         }))
-                .then(Mono.just(movementRequest))
-                .map(movement -> {
-                    LocalDateTime lt = LocalDateTime.now();
-                    movement.setDate(lt);
-                    return movement;
-                })
-                .flatMap(movementLoan -> movementLoanRepository.insert(movementLoan))
+                .map(MovementResponse::fromModelMovementLoan)
                 .onErrorMap(ex -> new MovementCreationException(ex.getMessage()));
     }
 
