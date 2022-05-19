@@ -46,7 +46,7 @@ public class CreditCardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<CreditCardResponse> saveCreditCard(@Valid @RequestBody Mono<CreditCardRequest> creditCardRequestMono) {
+    public Mono<CreditCardResponse> saveCreditCard(@Valid @RequestBody CreditCardRequest creditCardRequestMono) {
         return service.saveCreditCard(creditCardRequestMono);
     }
 
