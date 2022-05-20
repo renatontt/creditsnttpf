@@ -7,8 +7,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +20,7 @@ public class Movement {
     private String type;
     @NonNull
     private Double amount;
-    private LocalDateTime date;
+    private LocalDate date;
 
     public Double getAmountSigned(){
         return type.equalsIgnoreCase("withdraw")?-1*amount:amount;

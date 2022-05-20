@@ -2,14 +2,11 @@ package com.group7.creditsservice.controller;
 
 import com.group7.creditsservice.dto.CreditCardRequest;
 import com.group7.creditsservice.dto.CreditCardResponse;
-import com.group7.creditsservice.dto.LoanRequest;
 import com.group7.creditsservice.model.CreditCard;
-import com.group7.creditsservice.model.MovementCreditCard;
 import com.group7.creditsservice.service.CreditCardService;
 import com.group7.creditsservice.service.MovementCreditCardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -31,6 +28,11 @@ public class CreditCardController {
         return service.findAllCreditCars();
     }
 
+    @GetMapping("{id}")
+    public Mono<CreditCardResponse> getCreditCard(@PathVariable String id) {
+        return service.getById(id);
+    }
+
     @GetMapping("/client/{client}")
     public Flux<CreditCardResponse> getAllCreditCardsByClient(@PathVariable String client) {
         return service.getAllCreditCardsByClient(client);
@@ -44,7 +46,7 @@ public class CreditCardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<CreditCardResponse> saveCreditCard(@Valid @RequestBody Mono<CreditCardRequest> creditCardRequestMono) {
+    public Mono<CreditCardResponse> saveCreditCard(@Valid @RequestBody CreditCardRequest creditCardRequestMono) {
         return service.saveCreditCard(creditCardRequestMono);
     }
 

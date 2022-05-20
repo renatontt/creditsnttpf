@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 
-import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @SuperBuilder

@@ -19,6 +19,19 @@ public class CreditCardRequest {
     @NotBlank
     private String client;
 
+    @NotBlank
+    private String number;
+
+    @NotNull
+    @Min(value = 1)
+    @Max(value = 25)
+    private int paymentDay;
+
+    @NotNull
+    @Min(value = 1)
+    @Max(value = 25)
+    private int billingDay;
+
     @Positive
     @NotNull
     private double amount;
@@ -27,27 +40,14 @@ public class CreditCardRequest {
     @NotNull
     private double balance;
 
-    @NotNull
-    @Min(value = 1)
-    @Max(value = 25)
-    private int paymentDay;
-
-    @NotBlank
-    private String number;
-
-    @NotNull
-    @Min(value = 1)
-    @Max(value = 25)
-    private int billingDay;
-
     public CreditCard toModel() {
         return CreditCard.builder()
                 .client(this.client)
+                .number(this.number)
+                .paymentDay(this.paymentDay)
+                .billingDay(this.billingDay)
                 .amount(this.amount)
                 .balance(this.balance)
-                .paymentDay(this.paymentDay)
-                .number(this.number)
-                .billingDay(this.billingDay)
                 .build();
     }
 }

@@ -1,5 +1,7 @@
 package com.group7.creditsservice.service;
 
+import com.group7.creditsservice.dto.MovementRequest;
+import com.group7.creditsservice.dto.MovementResponse;
 import com.group7.creditsservice.model.Credit;
 import com.group7.creditsservice.model.CreditCard;
 import com.group7.creditsservice.model.MovementCreditCard;
@@ -40,7 +42,7 @@ public class MovementCreditCardServiceImpl implements MovementCreditCardService 
     }
 
     @Override
-    public Flux<MovementCreditCard> getAllMovementsByCredit(String credit) {
+    public Flux<MovementResponse> getAllMovementsByCredit(String credit) {
         return movementRepository.findByCredit(credit);
     }
 
@@ -52,7 +54,6 @@ public class MovementCreditCardServiceImpl implements MovementCreditCardService 
         LocalDate last = currentMonth.atEndOfMonth();
 
         return movementRepository.findByCreditAndDateBetween(credit, firstOfMonth, last)
-                .doOnEach(System.out::println)
                 .reduce(0.0,(x,y)-> x + y.getAmountSigned());
 
     }
@@ -98,38 +99,20 @@ public class MovementCreditCardServiceImpl implements MovementCreditCardService 
 
 
     @Override
-    public Mono<MovementCreditCard> save(MovementCreditCard movementRequest) {
+    public Mono<MovementResponse> save(MovementRequest movementRequest) {
         return Mono.just(movementRequest)
+                .map(MovementRequest::toModelMovementCreditCard)
                 .flatMap(movement -> creditCardRepository.findById(movement.getCredit())
                         .switchIfEmpty(Mono.error(new MovementCreationException("Account not found with id: " + movement.getCredit())))
                         .flatMap(existingCredit -> {
                             if (!existingCredit.isMovementValid(movement.getType(), movement.getAmount()))
                                 return Mono.error(new MovementCreationException("You reach the limit of your credit card"));
                             existingCredit.makeMovement(movement.getType(), movement.getAmount());
-                            return creditCardRepository.save(existingCredit);
+                            return creditCardRepository.save(existingCredit)
+                                    .then(movementRepository.insert(movement));
                         }))
-                .then(Mono.just(movementRequest))
-                .map(movement -> {
-                    LocalDateTime lt = LocalDateTime.now();
-                    movement.setDate(lt);
-                    return movement;
-                })
-                .flatMap(movement -> movementRepository.insert(movement))
+                .map(MovementResponse::fromModelMovementCreditCard)
                 .onErrorMap(ex -> new MovementCreationException(ex.getMessage()));
-    }
-
-    @Override
-    public Mono<MovementCreditCard> update(String id, MovementCreditCard movementRequest) {
-
-        return movementRepository.findById(id)
-                .switchIfEmpty(Mono.error(new MovementCreationException("Credit not found with id: " + id)))
-                .doOnError(ex -> log.error("Account not found with id: {}", id, ex))
-                .flatMap(existingAccount -> {
-                    existingAccount.setDate(movementRequest.getDate());
-                    return movementRepository.save(existingAccount);
-                })
-                .doOnSuccess(res -> log.info("Updated movement with ID: {}", res.getId()));
-
     }
 
     @Override
