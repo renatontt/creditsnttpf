@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: creditsservice
+  labels:
+    app: creditsservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: creditsservice
+  template:
+    metadata:
+      labels:
+        app: creditsservice
+        service: creditsservice
+    spec:
+      containers:
+        - name: creditsservice
+          image: creditsservice.azurecr.io/creditsservice:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:8082
+            - name: WebApiBaseAddress
+              value: http://webapi
