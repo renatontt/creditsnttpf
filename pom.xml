@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.group7</groupId>
-    <artifactId>credits-service</artifactId>
+    <artifactId>creditsnttpf</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-    <name>CreditsService</name>
-    <description>CreditsService</description>
+    <name>creditsnttpf</name>
+    <description>creditsnttpf</description>
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.2</spring-cloud.version>

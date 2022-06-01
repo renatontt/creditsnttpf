@@ -6,4 +6,4 @@ COPY src src
 RUN mvn package
 RUN ls
 EXPOSE 8082
-ENTRYPOINT ["java","-jar","target/credits-service-0.0.2-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","target/creditsnttpf-0.0.2-SNAPSHOT.jar"]

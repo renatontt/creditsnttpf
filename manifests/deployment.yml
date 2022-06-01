@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: creditsservice
+  name: creditsnttpf
   labels:
-    app: creditsservice
+    app: creditsnttpf
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: creditsservice
+      service: creditsnttpf
   template:
     metadata:
       labels:
-        app: creditsservice
-        service: creditsservice
+        app: creditsnttpf
+        service: creditsnttpf
     spec:
       containers:
-        - name: creditsservice
-          image: creditsservice.azurecr.io/creditsservice:v1
+        - name: creditsnttpf
+          image: creditsnttpf.azurecr.io/creditsnttpf:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082

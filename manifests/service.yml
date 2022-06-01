@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: creditsservice
+  name: creditsnttpf
   labels:
-    app: creditsservice
-    service: creditsservice
+    app: creditsnttpf
+    service: creditsnttpf
 spec:
   type: LoadBalancer
   ports:
@@ -12,4 +12,4 @@ spec:
       targetPort: 8082
       protocol: TCP
   selector:
-    service: creditsservice
+    service: creditsnttpf
